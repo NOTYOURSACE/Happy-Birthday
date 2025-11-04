@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Birthday Surprise ❤️</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&family=Fredoka+One&display=swap');
+
+  html,body{
+    height:100%;margin:0;overflow:hidden;
+    font-family:'Poppins',sans-serif;
+    background:radial-gradient(circle at top left,#ff6f91 0%,#ff9671 40%,#ffc75f 100%);
+    display:flex;align-items:center;justify-content:center;flex-direction:column;
+  }
+
+  #enter{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;background:linear-gradient(180deg,#ff6f91,#ff9671);color:white;z-index:99;animation:fadeIn 1s ease forwards;}
+  #enter h2{font-size:1.8em;margin:0 20px;}
+  #enter button{margin-top:25px;padding:12px 32px;font-size:1.1em;border:none;border-radius:50px;color:#ff6f91;background:white;font-weight:600;box-shadow:0 6px 20px rgba(255,255,255,0.5);cursor:pointer;transition:transform .2s;}
+  #enter button:hover{transform:scale(1.05);}
+
+  .card{
+    position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%) scale(0.9);
+    text-align:center;color:#fff;
+    background:rgba(255,105,180,0.25);
+    backdrop-filter:blur(12px);
+    border-radius:24px;padding:40px 25px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+    width:90%;max-width:420px;
+    opacity:0;
+    transition:opacity 1s ease, transform 1s ease;
+  }
+  .visible{opacity:1;transform:translate(-50%,-50%) scale(1);}
+  .hidden{opacity:0;pointer-events:none;}
+
+  h1{font-family:'Great Vibes',cursive;font-size:2.6em;margin:0 0 10px;color:#fff;text-shadow:0 3px 12px rgba(0,0,0,0.3);}
+  p{font-size:1.1em;line-height:1.6;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,0.4);}
+  
+  /* Heart animation */
+  .hearts{position:fixed;inset:0;overflow:hidden;z-index:-1;}
+  .heart{position:absolute;bottom:-10px;color:rgba(255,255,255,0.9);font-size:18px;animation:float 7s linear infinite;}
+  @keyframes float{0%{transform:translateY(0) scale(1);}100%{transform:translateY(-120vh) scale(1.6);opacity:0;}}
+
+  .next-btn{margin-top:25px;padding:12px 30px;border:none;border-radius:40px;background:white;color:#ff6f91;font-weight:600;font-size:1em;cursor:pointer;box-shadow:0 6px 20px rgba(255,255,255,0.5);transition:transform .2s;}
+  .next-btn:hover{transform:scale(1.05);}
+
+  /* Last card playful font */
+  #card3 h1{font-family:'Fredoka One',cursive;font-size:3em;text-shadow:0 3px 15px rgba(0,0,0,0.4);}
+  #card3 p{font-family:'Fredoka One',cursive;font-size:1.2em;}
+</style>
+</head>
+<body>
+
+<div id="enter">
+  <h2>💖 A special birthday surprise for you 💖</h2>
+  <button id="openBtn">Open Card</button>
+</div>
+
+<!-- Card 1 -->
+<div class="card" id="card1">
+  <h1>Happy Birthday, My Love 🎂</h1>
+  <p>
+    You are the light of my life, the reason behind my smile,  
+    and the heartbeat that keeps me going.  
+    On your special day, I just want you to know  
+    how deeply and endlessly I love you.  
+    May your day be as beautiful as your heart. 💞
+  </p>
+  <p>
+    Every moment spent with you feels like magic —  
+    your laughter is my favorite melody,  
+    your smile my most precious sight.  
+    I still remember the first time I saw you,  
+    and how my world changed forever that day.  
+  </p>
+  <p>
+    I can’t wait to celebrate countless more birthdays by your side,  
+    creating memories, sharing dreams,  
+    and holding you close through every sunrise and sunset.  
+    You are my forever, my peace, my greatest blessing. 💗
+  </p>
+  <button class="next-btn" id="nextBtn1">That’s not all… 💌</button>
+</div>
+
+<!-- Card 2 -->
+<div class="card hidden" id="card2">
+  <h1>And there’s more… 💌</h1>
+  <p>
+    Because one card could never hold everything I feel for you.  
+    You are my safe place, my biggest adventure,  
+    and the love I never thought I’d find.  
+  </p>
+  <p>
+    Every day with you is a new reason to smile,  
+    every hug a reminder of how lucky I am.  
+    I thank destiny for bringing you into my life,  
+    and I promise to keep cherishing you, every single day. 💞
+  </p>
+  <p>
+    So here’s to *us* — to our laughter, our dreams,  
+    our late-night talks and endless love stories still to come.  
+    Happy Birthday, my forever. 🎂❤️
+  </p>
+  <button class="next-btn" id="nextBtn2">We still have more… 😏</button>
+</div>
+
+<div class="card hidden" id="card3">
+  <h1>🔥 TREASURE 🔥 😋KUB MILA GA😋 </h1>
+  <p style="margin-top:10px;font-size:1.1em;opacity:0.9;">Wo gifts hai, per mil nahi sakta 😋</p>
+</div>
+
+<div class="hearts" id="hearts"></div>
+
+<audio id="bg" preload="auto" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_749c245a0a.mp3?filename=romantic-piano-11083.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const openBtn = document.getElementById('openBtn');
+const enter = document.getElementById('enter');
+const card1 = document.getElementById('card1');
+const card2 = document.getElementById('card2');
+const card3 = document.getElementById('card3');
+const nextBtn1 = document.getElementById('nextBtn1');
+const nextBtn2 = document.getElementById('nextBtn2');
+const bg = document.getElementById('bg');
+const hearts = document.getElementById('hearts');
+
+openBtn.addEventListener('click', () => {
+  enter.style.display='none';
+  card1.classList.add('visible');
+  bg.volume = 0.15;
+  bg.play().catch(()=> console.log("Tap required for music."));
+});
+
+nextBtn1.addEventListener('click', () => {
+  card1.classList.remove('visible');
+  setTimeout(() => { card1.classList.add('hidden'); card2.classList.remove('hidden'); card2.classList.add('visible'); }, 500);
+});
+
+nextBtn2.addEventListener('click', () => {
+  card2.classList.remove('visible');
+  setTimeout(() => { card2.classList.add('hidden'); card3.classList.remove('hidden'); card3.classList.add('visible'); }, 500);
+});
+
+function createHeart(){
+  const heart = document.createElement('div');
+  heart.classList.add('heart');
+  heart.textContent = '❤';
+  heart.style.left = Math.random()*100 + 'vw';
+  heart.style.fontSize = (16 + Math.random()*26)+'px';
+  heart.style.animationDuration = (5+Math.random()*4)+'s';
+  hearts.appendChild(heart);
+  setTimeout(()=>heart.remove(),8000);
+}
+setInterval(createHeart,300);
+</script>
+
+</body>
+</html>
